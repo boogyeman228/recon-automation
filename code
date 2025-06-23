@@ -1,5 +1,3 @@
-#!/bin/bash
-
 read -p "Enter your domain (example.com): " domain
 
 # Create directories
