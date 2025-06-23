@@ -2,7 +2,7 @@
 
 A simple Bash script to automate subdomain enumeration, live host detection, and screenshotting using tools like Subfinder, Amass, Assetfinder, Httprobe, and Gowitness.
 
-## For Starting :
+## 🚀 Usage
 ```bash
 git clone https://github.com/boogyeman228/recon-automation
 chmod +x recon_start.sh
@@ -22,5 +22,3 @@ chmod +x recon_start.sh
 - Assetfinder
 - Httprobe
 - Gowitness
-
-## 🚀 Usage
