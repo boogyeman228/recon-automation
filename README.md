@@ -19,6 +19,6 @@ A simple Bash script to automate subdomain enumeration, live host detection, and
 ## 🚀 Usage
 
 ```bash
-chmod +x recon.sh
-./recon.sh
+chmod +x recon_start.sh
+./recon_start.sh
 ```
