@@ -1,0 +1,30 @@
+#!/bin/bash
+
+read -p "Enter your domain (example.com): " domain
+
+# Create directories
+mkdir -p "$domain/recon/final"
+
+echo "[+] Enumerating subdomains with Subfinder... "
+docker run projectdiscovery/subfinder:latest -d $domain > "$domain/recon/subfinder.txt"
+cat "$domain/recon/subfinder.txt" >> "$domain/recon/final/final.txt"
+
+echo "[+] Enumerating subdomains with Amass... "
+timeout 155s amass enum -d $domain > "$domain/recon/amass.txt"
+cat "$domain/recon/amass.txt" >> "$domain/recon/final/final.txt"
+
+echo "[+] Enumerating subdomains with Assetfinder... "
+assetfinder --subs-only $domain > "$domain/recon/assetfinder.txt"
+cat "$domain/recon/assetfinder.txt" >> "$domain/recon/final/final.txt"
+
+echo "[+] Removing duplicates..."
+sort "$domain/recon/final/final.txt" | uniq > "$domain/recon/final/sorted_final.txt"
+
+echo "[+] Probing for live domains... "
+cat "$domain/recon/final/sorted_final.txt" | httprobe > "$domain/recon/final/live.txt"
+
+echo "[+] Taking screenshots using gowitness... "
+read -p "Enter your domain (example.com): " domain
+gowitness scan file -f "$domain/recon/final/live.txt" --screenshot-fullpage --screenshot-path "$domain/recon/final/screenshots"
+
+echo "[+] Recon complete!"
