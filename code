@@ -1,28 +1,29 @@
-read -p "Enter your domain (example.com): " domain
+#!/bin/bash
 
-# Create directories
-mkdir -p "$domain/recon/final"
+url=$1
+if [ ! -d "$url" ]; then
+    mkdir -p "$url/recon/final"
+fi
 
 echo "[+] Enumerating subdomains with Subfinder... "
-docker run projectdiscovery/subfinder:latest -d $domain > "$domain/recon/subfinder.txt"
-cat "$domain/recon/subfinder.txt" >> "$domain/recon/final/final.txt"
+docker run --rm projectdiscovery/subfinder:latest -d "$url" > "$url/recon/subfinder.txt"
+cat "$url/recon/subfinder.txt" >> "$url/recon/final/final.txt"
 
 echo "[+] Enumerating subdomains with Amass... "
-timeout 155s amass enum -d $domain > "$domain/recon/amass.txt"
-cat "$domain/recon/amass.txt" >> "$domain/recon/final/final.txt"
+timeout 120s amass enum -d "$url" > "$url/recon/amass.txt"
+cat "$url/recon/amass.txt" >> "$url/recon/final/final.txt"
 
-echo "[+] Enumerating subdomains with Assetfinder... "
-assetfinder --subs-only $domain > "$domain/recon/assetfinder.txt"
-cat "$domain/recon/assetfinder.txt" >> "$domain/recon/final/final.txt"
+echo "[+] Enumerating subdomains with assetfinder... "
+assetfinder --subs-only "$url" > "$url/recon/assetfinder.txt"
+cat "$url/recon/assetfinder.txt" >> "$url/recon/final/final.txt"
 
-echo "[+] Removing duplicates..."
-sort "$domain/recon/final/final.txt" | uniq > "$domain/recon/final/sorted_final.txt"
+echo "[+] Removing duplicates... "
+sort -u "$url/recon/final/final.txt" > "$url/recon/final/sorted_final.txt"
 
-echo "[+] Probing for live domains... "
-cat "$domain/recon/final/sorted_final.txt" | httprobe > "$domain/recon/final/live.txt"
+echo "[+] Probing live domains... "
+cat "$url/recon/final/sorted_final.txt" | httprobe > "$url/recon/final/live.txt"
 
-echo "[+] Taking screenshots using gowitness... "
-read -p "Enter your domain (example.com): " domain
-gowitness scan file -f "$domain/recon/final/live.txt" --screenshot-fullpage --screenshot-path "$domain/recon/final/screenshots"
+echo "[+] Taking screenshots... "
+gowitness scan file -f "$url/recon/final/live.txt" --screenshot-fullpage --screenshot-path "$url/recon/final/screenshots
 
 echo "[+] Recon complete!"
