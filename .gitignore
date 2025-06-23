@@ -1,0 +1,41 @@
+# Database gowitness
+*.sqlite3
+
+# JSON reports
+*.jsonl
+
+# CSV/DB reports
+*.csv
+*.db
+
+# Cache
+*.log
+*.tmp
+*.bak
+*.swp
+
+# 🖼 Screenshots
+recon/**/screenshots/*
+!recon/**/screenshots/example.png
+
+# 🔍 Results of scaning
+recon/**/final/live.txt
+recon/**/final/final.txt
+recon/**/final/sorted_final.txt
+recon/**/amass.txt
+recon/**/subfinder.txt
+recon/**/assetfinder.txt
+
+# 🐳 Docker container meta-files
+.docker
+
+# 🐧 Unix-like system files
+.DS_Store
+Thumbs.db
+
+# 💡 PyCharm/VScode project configs 
+.idea/
+.vscode/
+
+# 🗂 Linux system files
+*~
