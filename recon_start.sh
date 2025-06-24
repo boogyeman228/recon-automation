@@ -1,5 +1,6 @@
 #!/bin/bash
 
+chmod +x code
 required_tools=("docker" "amass" "assetfinder" "httprobe" "gowitness")
 echo "[*] Checking dependencies..."
 for tool in "${required_tools[@]}"; do
@@ -33,3 +34,4 @@ done
 
 read -p "Enter target domain (e.g. example.com): " url
 ./code "$url"
+chmod -x code
