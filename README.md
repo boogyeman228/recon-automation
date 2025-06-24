@@ -5,6 +5,7 @@ A simple Bash script to automate subdomain enumeration, live host detection, and
 ## 🚀 Usage
 ```bash
 git clone https://github.com/boogyeman228/recon-automation
+cd recon-automation
 chmod +x recon_start.sh
 chmod +x code
 ./recon_start.sh
