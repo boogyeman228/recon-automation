@@ -24,6 +24,6 @@ echo "[+] Probing live domains... "
 cat "$url/recon/final/sorted_final.txt" | httprobe > "$url/recon/final/live.txt"
 
 echo "[+] Taking screenshots... "
-gowitness scan file -f "$url/recon/final/live.txt" --screenshot-fullpage --screenshot-path "$url/recon/final/screenshots
+gowitness scan file -f "$url/recon/final/live.txt" --screenshot-fullpage --screenshot-path "$url/recon/final/screenshots"
 
 echo "[+] Recon complete!"
